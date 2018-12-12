@@ -1,0 +1,19 @@
+{
+  "name": "vo-handbook",
+  "description": "Gatsby hello world starter",
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve"
+  },
+  "dependencies": {
+    "firebase": "^5.6.0",
+    "gatsby": "^2.0.33",
+    "gatsby-plugin-netlify-cms": "^3.0.9",
+    "netlify-cms": "^2.3.1",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "recompose": "^0.30.0"
+  }
+}
