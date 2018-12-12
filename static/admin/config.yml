@@ -6,12 +6,14 @@ media_folder: static/assets
 public_folder: assets
 
 collections:
-  - name: blog
-    label: Blog
-    folder: blog
+  - name: welcome-docs
+    label: Welcome Docs
+    folder: content/entries/welcome-docs
     create: true
+    slug: "{{slug}}"
     fields:
-      - { name: path, label: Path }
+      - { name: templateKey, label: Template Key, widget: hidden, default: welcome-doc }
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title }
       - { name: body, label: Body, widget: markdown }
+      - { name: section, label: 'Section', widget: select, options: [values, manuals ] }
