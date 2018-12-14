@@ -11,6 +11,11 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "scripts": {
     "develop": "gatsby develop",
     "start": "npm run develop",
@@ -18,7 +23,6 @@
     "serve": "gatsby serve",
     "lint:js": "eslint --ext .js,.jsx --ignore-pattern public,static . && prettier 'src/**/*.{js,jsx}' --list-different",
     "format:js": "prettier 'src/**/*.{js,jsx}' --write",
-    "precommit": "lint-staged",
     "lint": "eslint src --fix"
   },
   "dependencies": {
