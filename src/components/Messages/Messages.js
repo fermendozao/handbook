@@ -18,14 +18,6 @@ class Messages extends Component {
     };
   }
 
-  firebaseInit = () => {
-    if (this.props.firebase && !this._initFirebase) {
-      this._initFirebase = true;
-
-      this.onListenForMessages();
-    }
-  };
-
   componentDidMount() {
     this.firebaseInit();
   }
@@ -34,13 +26,31 @@ class Messages extends Component {
     this.firebaseInit();
   }
 
+  componentWillUnmount() {
+    const {
+      firebase: { messages },
+    } = this.props;
+
+    messages().off();
+  }
+
+  firebaseInit = () => {
+    const { firebase } = this.props;
+    if (firebase && !this._initFirebase) {
+      this._initFirebase = true;
+      this.onListenForMessages();
+    }
+  };
+
   onListenForMessages = () => {
+    const { firebase } = this.props;
+    const { limit } = this.state;
     this.setState({ loading: true });
 
-    this.props.firebase
+    firebase
       .messages()
       .orderByChild('createdAt')
-      .limitToLast(this.state.limit)
+      .limitToLast(limit)
       .on('value', snapshot => {
         const messageObject = snapshot.val();
 
@@ -60,19 +70,24 @@ class Messages extends Component {
       });
   };
 
-  componentWillUnmount() {
-    this.props.firebase.messages().off();
-  }
-
   onChangeText = event => {
     this.setState({ text: event.target.value });
   };
 
   onCreateMessage = (event, authUser) => {
-    this.props.firebase.messages().push({
-      text: this.state.text,
+    const {
+      firebase: {
+        messages,
+        serverValue: { TIMESTAMP },
+      },
+    } = this.props;
+
+    const { text } = this.state;
+
+    messages().push({
+      text,
       userId: authUser.uid,
-      createdAt: this.props.firebase.serverValue.TIMESTAMP,
+      createdAt: TIMESTAMP,
     });
 
     this.setState({ text: '' });
@@ -81,15 +96,26 @@ class Messages extends Component {
   };
 
   onEditMessage = (message, text) => {
-    this.props.firebase.message(message.uid).set({
+    const {
+      firebase: {
+        message: fbMessage,
+        serverValue: { TIMESTAMP },
+      },
+    } = this.props;
+
+    fbMessage(message.uid).set({
       ...message,
       text,
-      editedAt: this.props.firebase.serverValue.TIMESTAMP,
+      editedAt: TIMESTAMP,
     });
   };
 
   onRemoveMessage = uid => {
-    this.props.firebase.message(uid).remove();
+    const {
+      firebase: { message },
+    } = this.props;
+
+    message(uid).remove();
   };
 
   onNextPage = () => {
@@ -107,12 +133,11 @@ class Messages extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            {!loading &&
-              messages && (
-                <button type="button" onClick={this.onNextPage}>
-                  More
-                </button>
-              )}
+            {!loading && messages && (
+              <button type="button" onClick={this.onNextPage}>
+                More
+              </button>
+            )}
 
             {loading && <div>Loading ...</div>}
 

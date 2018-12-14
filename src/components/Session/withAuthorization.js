@@ -9,21 +9,6 @@ const withAuthorization = condition => Component => {
   class WithAuthorization extends React.Component {
     _initFirebase = false;
 
-    firebaseInit = () => {
-      if (this.props.firebase && !this._initFirebase) {
-        this._initFirebase = true;
-
-        this.listener = this.props.firebase.onAuthUserListener(
-          authUser => {
-            if (!condition(authUser)) {
-              navigate(ROUTES.SIGN_IN);
-            }
-          },
-          () => navigate(ROUTES.SIGN_IN),
-        );
-      }
-    };
-
     componentDidMount() {
       this.firebaseInit();
     }
@@ -35,6 +20,22 @@ const withAuthorization = condition => Component => {
     componentWillUnmount() {
       this.listener();
     }
+
+    firebaseInit = () => {
+      const { firebase } = this.props;
+      if (firebase && !this._initFirebase) {
+        this._initFirebase = true;
+
+        this.listener = firebase.onAuthUserListener(
+          authUser => {
+            if (!condition(authUser)) {
+              navigate(ROUTES.SIGN_IN);
+            }
+          },
+          () => navigate(ROUTES.SIGN_IN),
+        );
+      }
+    };
 
     render() {
       return (

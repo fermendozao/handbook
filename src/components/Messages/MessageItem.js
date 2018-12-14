@@ -4,16 +4,23 @@ class MessageItem extends Component {
   constructor(props) {
     super(props);
 
+    const {
+      message: { text },
+    } = this.props;
+
     this.state = {
       editMode: false,
-      editText: this.props.message.text,
+      editText: text,
     };
   }
 
   onToggleEditMode = () => {
+    const {
+      message: { text },
+    } = this.props;
     this.setState(state => ({
       editMode: !state.editMode,
-      editText: this.props.message.text,
+      editText: text,
     }));
   };
 
@@ -22,7 +29,9 @@ class MessageItem extends Component {
   };
 
   onSaveEditText = () => {
-    this.props.onEditMessage(this.props.message, this.state.editText);
+    const { onEditMessage, message } = this.props;
+    const { editText } = this.state;
+    onEditMessage(message, editText);
 
     this.setState({ editMode: false });
   };
@@ -50,11 +59,17 @@ class MessageItem extends Component {
 
         {editMode ? (
           <span>
-            <button onClick={this.onSaveEditText}>Save</button>
-            <button onClick={this.onToggleEditMode}>Reset</button>
+            <button onClick={this.onSaveEditText} type="button">
+              Save
+            </button>
+            <button onClick={this.onToggleEditMode} type="button">
+              Reset
+            </button>
           </span>
         ) : (
-          <button onClick={this.onToggleEditMode}>Edit</button>
+          <button onClick={this.onToggleEditMode} type="button">
+            Edit
+          </button>
         )}
 
         {!editMode && (

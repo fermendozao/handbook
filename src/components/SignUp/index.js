@@ -32,6 +32,7 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
+    const { firebase } = this.props;
     const { username, email, passwordOne, isAdmin } = this.state;
     const roles = [];
 
@@ -39,25 +40,24 @@ class SignUpFormBase extends Component {
       roles.push(ROLES.ADMIN);
     }
 
-    this.props.firebase
+    firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
+      .then(authUser =>
         // Create a user in your Firebase realtime database
-        return this.props.firebase.user(authUser.user.uid).set({
+        firebase.user(authUser.user.uid).set({
           username,
           email,
           roles,
-        });
-      })
-      .then(() => {
-        return this.props.firebase.doSendEmailVerification();
-      })
+        }),
+      )
+      .then(() => firebase.doSendEmailVerification())
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         navigate(ROUTES.HOME);
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+          // eslint-disable-next-line
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
 
@@ -121,7 +121,7 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Confirm Password"
         />
-        <label>
+        <label htmlFor="isAdmin">
           Admin:
           <input
             name="isAdmin"
@@ -142,7 +142,8 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    Don&#39;t have an account?{' '}
+    <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
 

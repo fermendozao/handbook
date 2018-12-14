@@ -1,0 +1,216 @@
+/**********
+ Reset
+***********/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+/**********
+ Text
+***********/
+html {
+  font-size: 10px;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+li,
+ul {
+  font-family: 'Avenir', 'Helvetica Neue', sans-serif;
+  color: #333333;
+}
+
+h1 {
+  margin: 3rem 0 1.2rem;
+}
+h2 {
+  margin: 2.4rem 0 1rem;
+}
+h3 {
+  margin: 2rem 0 1rem;
+}
+h4,
+h5,
+h6 {
+  margin: 1.4rem 0 1rem;
+}
+
+p,
+ul,
+ol,
+dl {
+  margin: 0 0 4rem;
+}
+
+li,
+li > * {
+  margin: 10px 0;
+}
+
+dt {
+  margin: 0;
+}
+
+dd {
+  margin: 0 0 0 25px;
+}
+
+pre,
+code {
+  font-family: Consolas, Menlo, Monaco, 'Andale Mono WT',
+    'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter',
+    'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono',
+    'Nimbus Mono L', 'Courier New', Courier, monospace, monospace;
+  font-size: 1.4rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+h5 {
+  font-size: 2rem;
+}
+
+h6 {
+  font-size: 1.6rem;
+}
+
+p,
+a,
+li,
+dt,
+dd,
+tr,
+th {
+  font-size: 1.6rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+label,
+button,
+input,
+select {
+  cursor: pointer;
+}
+
+blockquote {
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 20px;
+  position: relative;
+  background: #e8e8ea;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+
+  /*Font*/
+  font-size: 1.6rem;
+  line-height: 1.2;
+  text-align: justify;
+
+  /*Borders - (Optional)*/
+  border-left: 8px solid #9d7cbf;
+}
+
+blockquote::before {
+  content: '\201C'; /*Unicode for Left Double Quote*/
+
+  /*Font*/
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: bold;
+
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+
+blockquote > h3,
+h4,
+h5 {
+  margin: 15px 0;
+}
+
+.aside,
+.tip,
+.warning,
+.caption {
+  padding: 15px 20px 15px 20px;
+  margin: 0 0 20px;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+
+  /*Font*/
+  font-size: 1.6rem;
+  line-height: 1.2;
+  text-align: justify;
+}
+
+/* Asides */
+.aside {
+  background: #f5f3f7;
+  box-shadow: none;
+}
+
+.tip {
+  background: rgba(124, 191, 159, 0.43);
+  border-left: 8px solid #7cbf9f;
+}
+
+.warning {
+  background: rgba(255, 102, 102, 0.51);
+  border-left: 8px solid #ff6666;
+}
+
+.aside p,
+.tip p,
+.warning p,
+.caption p {
+  margin: 0px;
+}

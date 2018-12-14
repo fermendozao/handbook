@@ -1,10 +1,10 @@
 const config = {
-  apiKey: "AIzaSyB-rDQjieTdZCO0c5ON_Mkp46hmv56o7xw",
-  authDomain: "vo-handbook.firebaseapp.com",
-  databaseURL: "https://vo-handbook.firebaseio.com",
-  projectId: "vo-handbook",
-  storageBucket: "vo-handbook.appspot.com",
-  messagingSenderId: "414695164329"
+  apiKey: 'AIzaSyB-rDQjieTdZCO0c5ON_Mkp46hmv56o7xw',
+  authDomain: 'vo-handbook.firebaseapp.com',
+  databaseURL: 'https://vo-handbook.firebaseio.com',
+  projectId: 'vo-handbook',
+  storageBucket: 'vo-handbook.appspot.com',
+  messagingSenderId: '414695164329',
 };
 
 class Firebase {
@@ -73,6 +73,7 @@ class Firebase {
             }
 
             // merge auth and db user
+            // eslint-disable-next-line
             authUser = {
               uid: authUser.uid,
               email: authUser.email,

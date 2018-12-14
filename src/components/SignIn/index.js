@@ -29,8 +29,9 @@ class SignInFormBase extends Component {
 
   onSubmit = event => {
     const { email, password } = this.state;
+    const { firebase } = this.props;
 
-    this.props.firebase
+    firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
@@ -86,22 +87,24 @@ class SignInGoogleBase extends Component {
   }
 
   onSubmit = event => {
-    this.props.firebase
+    const { firebase } = this.props;
+    firebase
       .doSignInWithGoogle()
-      .then(socialAuthUser => {
+      .then(socialAuthUser =>
         // Create a user in your Firebase Realtime Database too
-        return this.props.firebase.user(socialAuthUser.user.uid).set({
+        firebase.user(socialAuthUser.user.uid).set({
           username: socialAuthUser.user.displayName,
           email: socialAuthUser.user.email,
           roles: [],
-        });
-      })
+        }),
+      )
       .then(() => {
         this.setState({ error: null });
         navigate(ROUTES.HOME);
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+          // eslint-disable-next-line
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
 
@@ -132,22 +135,24 @@ class SignInFacebookBase extends Component {
   }
 
   onSubmit = event => {
-    this.props.firebase
+    const { firebase } = this.props;
+    firebase
       .doSignInWithFacebook()
-      .then(socialAuthUser => {
+      .then(socialAuthUser =>
         // Create a user in your Firebase Realtime Database too
-        return this.props.firebase.user(socialAuthUser.user.uid).set({
+        firebase.user(socialAuthUser.user.uid).set({
           username: socialAuthUser.additionalUserInfo.profile.name,
           email: socialAuthUser.additionalUserInfo.profile.email,
           roles: [],
-        });
-      })
+        }),
+      )
       .then(() => {
         this.setState({ error: null });
         navigate(ROUTES.HOME);
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+          // eslint-disable-next-line
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
 
@@ -178,22 +183,24 @@ class SignInTwitterBase extends Component {
   }
 
   onSubmit = event => {
-    this.props.firebase
+    const { firebase } = this.props;
+    firebase
       .doSignInWithTwitter()
-      .then(socialAuthUser => {
+      .then(socialAuthUser =>
         // Create a user in your Firebase Realtime Database too
-        return this.props.firebase.user(socialAuthUser.user.uid).set({
+        firebase.user(socialAuthUser.user.uid).set({
           username: socialAuthUser.additionalUserInfo.profile.name,
           email: socialAuthUser.additionalUserInfo.profile.email,
           roles: [],
-        });
-      })
+        }),
+      )
       .then(() => {
         this.setState({ error: null });
         navigate(ROUTES.HOME);
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+          // eslint-disable-next-line
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
 

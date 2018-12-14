@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { compose } from 'recompose';
 
 import Layout from '../components/layout';
+import WelcomePage from './welcome';
 import {
   withAuthorization,
   withEmailVerification,
@@ -20,18 +21,6 @@ class HomePageBase extends Component {
     };
   }
 
-  firebaseInit = () => {
-    if (this.props.firebase && !this._initFirebase) {
-      this._initFirebase = true;
-
-      this.props.firebase.users().on('value', snapshot => {
-        this.setState({
-          users: snapshot.val(),
-        });
-      });
-    }
-  };
-
   componentDidMount() {
     this.firebaseInit();
   }
@@ -41,16 +30,32 @@ class HomePageBase extends Component {
   }
 
   componentWillUnmount() {
-    this.props.firebase.users().off();
+    const { firebase } = this.props;
+    firebase.users().off();
   }
 
+  firebaseInit = () => {
+    const { firebase } = this.props;
+    if (firebase && !this._initFirebase) {
+      this._initFirebase = true;
+
+      firebase.users().on('value', snapshot => {
+        this.setState({
+          users: snapshot.val(),
+        });
+      });
+    }
+  };
+
   render() {
+    const { users } = this.state;
     return (
       <Fragment>
         <h1>Home Page</h1>
         <p>The Home Page is accessible by every signed in user.</p>
 
-        <Messages users={this.state.users} />
+        <Messages users={users} />
+        <WelcomePage />
       </Fragment>
     );
   }
