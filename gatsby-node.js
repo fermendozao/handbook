@@ -38,12 +38,8 @@ exports.createPages = ({graphql, actions}) => {
           }
         `
       ).then(result => {
-        console.log("GIME RESULT");
-        console.log(result);
         if (result.errors) {
           /* eslint no-console: "off" */
-          console.log("ERROR NODE");
-          console.log(result.errors)
           reject(result.errors)
         }
         result.data.allMarkdownRemark.edges.forEach(({ node }) => {

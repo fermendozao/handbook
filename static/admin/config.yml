@@ -17,3 +17,27 @@ collections:
       - { name: title, label: Title }
       - { name: body, label: Body, widget: markdown }
       - { name: section, label: 'Section', widget: select, options: [values, manuals ] }
+
+  - name: devs
+    label: Dev Docs
+    folder: content/entries/devs
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: templateKey, label: Template Key, widget: hidden, default: devs-doc }
+      - { name: date, label: Date, widget: date }
+      - { name: title, label: Title }
+      - { name: body, label: Body, widget: markdown }
+      - { name: section, label: 'Section', widget: select, options: [git] }
+
+  - name: sherpas
+    label: Sherpas Docs
+    folder: content/entries/sherpas
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: templateKey, label: Template Key, widget: hidden, default: sherpas-doc }
+      - { name: date, label: Date, widget: date }
+      - { name: title, label: Title }
+      - { name: body, label: Body, widget: markdown }
+      - { name: section, label: 'Section', widget: select, options: [] }

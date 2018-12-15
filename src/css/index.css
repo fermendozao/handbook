@@ -175,6 +175,10 @@ h5 {
   margin: 15px 0;
 }
 
+blockquote p {
+  margin: 0;
+}
+
 .aside,
 .tip,
 .warning,
