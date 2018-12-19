@@ -6,16 +6,19 @@ import Layout from '../components/layout';
 const WelcomePage = () => (
   <StaticQuery
     query={graphql`
-      query TableOfContents {
-        allMarkdownRemark {
+      query {
+        allMarkdownRemark(
+          filter: { frontmatter: { templateKey: { eq: "sherpas" } } }
+        ) {
           edges {
             node {
-              fields {
-                slug
-              }
+              id
               frontmatter {
                 title
-                section
+                templateKey
+              }
+              fields {
+                slug
               }
             }
           }

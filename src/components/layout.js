@@ -33,7 +33,45 @@ class Layout extends Component {
       <StaticQuery
         query={graphql`
           query {
-            allMarkdownRemark {
+            Bienvenido: allMarkdownRemark(
+              filter: {
+                frontmatter: { templateKey: { eq: "welcome-doc" } }
+              }
+            ) {
+              edges {
+                node {
+                  id
+                  fields {
+                    slug
+                  }
+                  frontmatter {
+                    title
+                    section
+                  }
+                }
+              }
+            }
+            Sherpas: allMarkdownRemark(
+              filter: {
+                frontmatter: { templateKey: { eq: "sherpas" } }
+              }
+            ) {
+              edges {
+                node {
+                  id
+                  fields {
+                    slug
+                  }
+                  frontmatter {
+                    title
+                    section
+                  }
+                }
+              }
+            }
+            Devs: allMarkdownRemark(
+              filter: { frontmatter: { templateKey: { eq: "devs" } } }
+            ) {
               edges {
                 node {
                   id
@@ -54,10 +92,7 @@ class Layout extends Component {
           return (
             <ThemeProvider theme={theme}>
               <FirebaseContext.Provider value={firebase}>
-                <AppWithAuthentication
-                  data={data.allMarkdownRemark.edges}
-                  {...this.props}
-                />
+                <AppWithAuthentication data={data} {...this.props} />
               </FirebaseContext.Provider>
             </ThemeProvider>
           );
